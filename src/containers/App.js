@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
-import './App.css'
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -11,12 +11,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-     fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then(user => {
-        this.setState({ robots: user })
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ robots: user });
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   searchChangeHandler = (event) => {
@@ -24,21 +24,20 @@ class App extends Component {
   };
 
   render() {
-    const filteredRobots = this.state.robots.filter((robot) => {
-      return robot.name
-        .toLowerCase()
-        .includes(this.state.searchfield.toLowerCase());
+    const { robots, searchfield } = this.state;
+    const filteredRobots = robots.filter((robot) => {
+      return robot.name.toLowerCase().includes(searchfield.toLowerCase());
     });
-    
-    if (this.state.robots.length === 0) {
-      return <h1 className="light-red">Loading..</h1>
+
+    if (robots.length === 0) {
+      return <h1 className="light-red">Loading..</h1>;
     } else {
       return (
         <div className="tc">
           <h1>AvafriendsII</h1>
           <SearchBox searchChange={this.searchChangeHandler} />
           <Scroll>
-              <CardList robots={filteredRobots} />
+            <CardList robots={filteredRobots} />
           </Scroll>
         </div>
       );
